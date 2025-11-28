@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodEase - Food Delivery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #333;
+    }
+
+    header {
+      background: #ff4d4d;
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    header nav a {
+      margin-left: 16px;
+      text-decoration: none;
+      color: white;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 40px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    }
+
+    .hero h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hero button {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .container {
+      padding: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h2.section-title {
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .item {
+      background: white;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .item img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .item h3 {
+      margin-bottom: 6px;
+    }
+
+    .item p {
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    button.primary {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+
+    #cart {
+      margin-top: 32px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    #cart ul {
+      list-style: none;
+      margin: 10px 0;
+    }
+
+    #cart li {
+      padding: 4px 0;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #checkout-form {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    #checkout-form input {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    #checkout-form button {
+      grid-column: span 2;
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      background: #f0f0f0;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header nav {
+        margin-top: 8px;
+      }
+
+      #checkout-form {
+        grid-template-columns: 1fr;
+      }
+
+      #checkout-form button {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FoodEase</h1>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#cart">Cart</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Fresh Food Delivered Fast</h2>
+    <p>Order from your favourite restaurants and get hot, tasty meals at your doorstep.</p>
+    <button onclick="scrollToMenu()">Explore Menu</button>
+  </section>
+
+  <main class="container">
+    <h2 class="section-title" id="menu">Menu</h2>
+    <div class="menu-grid">
+      <div class="item">
+        <img src="https://via.placeholder.com/300x180?text=Pizza" alt="Pizza" />
+        <h3>Margherita Pizza</h3>
+        <p>Classic cheese pizza with fresh basil.</p>
+        <p><strong>Price: ₹250</strong></p>
+        <button class="primary" onclick="addToCart('Margherita Pizza', 250)">Add to Cart</button>
+      </div>
+
+      <div class="item">
+        <img src="https://via.placeholder.com/300x180?text=Burger" alt="Burger" />
+        <h3>Cheese Burger</h3>
+        <p>Juicy patty with cheese and veggies.</p>
+        <p><strong>Price: ₹150</strong></p>
+        <button class="primary" onclick="addToCart('Cheese Burger', 150)">Add to Cart</button>
+      </div>
+
+      <div class="item">
+        <img src="https://via.placeholder.com/300x180?text=Momos" alt="Momos" />
+        <h3>Veg Momos</h3>
+        <p>Steamed dumplings with spicy chutney.</p>
+        <p><strong>Price: ₹100</strong></p>
+        <button class="primary" onclick="addToCart('Veg Momos', 100)">Add to Cart</button>
+      </div>
+
+      <div class="item">
+        <img src="https://via.placeholder.com/300x180?text=Thali" alt="Thali" />
+        <h3>North Indian Thali</h3>
+        <p>Complete meal with roti, sabzi, dal & rice.</p>
+        <p><strong>Price: ₹220</strong></p>
+        <button class="primary" onclick="addToCart('North Indian Thali', 220)">Add to Cart</button>
+      </div>
+    </div>
+
+    <section id="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-list"></ul>
+      <h3>Total: ₹<span id="total">0</span></h3>
+
+      <form id="checkout-form" onsubmit="return placeOrder()">
+        <input type="text" id="name" placeholder="Full Name" required />
+        <input type="text" id="phone" placeholder="Phone Number" required />
+        <input type="text" id="address" placeholder="Delivery Address" required />
+        <input type="text" id="pincode" placeholder="Pincode" required />
+        <button type="submit">Place Order (Demo)</button>
+      </form>
+      <p id="order-message"></p>
+    </section>
+
+    <section id="about" style="margin-top: 32px;">
+      <h2 class="section-title">About FoodEase</h2>
+      <p style="font-size:14px; line-height:1.6;">
+        FoodEase is a demo food delivery platform built using HTML, CSS, and JavaScript.
+        It showcases core front-end concepts like responsive design, dynamic UI updates,
+        cart management, and basic form validation.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    &copy; 2025 FoodEase. Demo project by Sachin.
+  </footer>
+
+  <script>
+    let total = 0;
+    const cartItems = [];
+
+    function addToCart(item, price) {
+      cartItems.push({ item, price });
+      renderCart();
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cart-list');
+      list.innerHTML = '';
+      total = 0;
+
+      cartItems.forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.item} - ₹${entry.price}`;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'X';
+        removeBtn.style.border = 'none';
+        removeBtn.style.background = 'transparent';
+        removeBtn.style.cursor = 'pointer';
+        removeBtn.style.marginLeft = '8px';
+        removeBtn.onclick = () => removeFromCart(index);
+        li.appendChild(removeBtn);
+        list.appendChild(li);
+        total += entry.price;
+      });
+
+      document.getElementById('total').textContent = total;
+    }
+
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      renderCart();
+    }
+
+    function placeOrder() {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const pincode = document.getElementById('pincode').value.trim();
+      const msg = document.getElementById('order-message');
+
+      // Very basic validation (you can mention this as security/validation in CV)
+      if (cartItems.length === 0) {
+        msg.textContent = 'Please add at least one item to the cart.';
+        msg.style.color = 'red';
+        return false;
+      }
+
+      if (phone.length < 10) {
+        msg.textContent = 'Please enter a valid phone number.';
+        msg.style.color = 'red';
+        return false;
+      }
+
+      msg.textContent = `Demo Order Placed! (Name: ${name}, Address: ${address}, Pincode: ${pincode})`;
+      msg.style.color = 'green';
+      return false; // prevent real form submit, this is a demo
+    }
+
+    function scrollToMenu() {
+      document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
